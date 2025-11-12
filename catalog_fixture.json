@@ -1,0 +1,44 @@
+[
+{
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "name": "Электроника",
+        "description": "Здесь собраны все электронные устройства"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+        "name": "Фрукты",
+        "description": "Здесь собраны все фрукты"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+        "name": "наушники",
+        "description": "",
+        "image": "",
+        "category": 1,
+        "price": "100.00",
+        "created_at": "2025-11-09T23:24:57.537Z",
+        "updated_at": "2025-11-09T23:24:57.537Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+        "name": "банан",
+        "description": "",
+        "image": "",
+        "category": 2,
+        "price": "10.00",
+        "created_at": "2025-11-09T23:27:48.726Z",
+        "updated_at": "2025-11-09T23:27:48.726Z"
+    }
+}
+]
