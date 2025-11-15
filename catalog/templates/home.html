@@ -11,7 +11,9 @@
         <div class="col-3">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">{{ product.name }}</h4>
+            <h4 class="my-0 font-weight-normal">
+                <a href="{% url 'catalog:product_info' product.id %}">{{ product.name }}</a>
+            </h4>
                 </div>
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">{{ product.price }}</h1>
