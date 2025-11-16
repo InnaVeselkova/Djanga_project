@@ -1,16 +1,19 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy
+
 from .models import Product
+from django.views.generic import ListView, DetailView, CreateView, TemplateView
 
 
-def home(request):
-    products = Product.objects.all()
-    context = {'products': products}
-    return render(request, 'home.html', context)
+class HomeListView(ListView):
+    model = Product
+    template_name = 'home.html'
+    context_object_name = 'products'
 
 
-def contacts(request):
-    return render(request, 'contacts.html')
+class ContactsView(TemplateView):
+    template_name = 'contacts.html'
 
 
 def contacts_form(request):
@@ -21,7 +24,15 @@ def contacts_form(request):
     return render(request, 'catalog/contacts.html')
 
 
-def product_view(request, product_id):
-    product = Product.objects.get(id=product_id)
-    context = {'product': product}
-    return render(request, 'catalog/product_info.html', context)
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product_info.html'
+    context_object_name = 'product'
+    pk_url_kwarg = 'product_id'
+
+
+class ProductCreateView(CreateView):
+    model = Product
+    fields = ['name', 'description', 'image', 'category', 'price']
+    template_name = 'catalog/product_form.html'
+    success_url = reverse_lazy('home')
