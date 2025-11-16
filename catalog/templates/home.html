@@ -1,0 +1,58 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Наши товары{% endblock %}
+
+{% block content %}
+{% include 'catalog/header.html' %}
+<h2>Наши товары</h2>
+<div class="container">
+    <div class="row text-center">
+        {% for product in products %}
+        <div class="col-3">
+            <div class="card mb-4 box-shadow">
+                <div class="card-header">
+            <h4 class="my-0 font-weight-normal">
+                <a href="{% url 'catalog:product_info' product.id %}">{{ product.name }}</a>
+            </h4>
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title pricing-card-title">{{ product.price }}</h1>
+                    <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">Купить</button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <footer class="pt-4 my-md-5 pt-md-5 border-top">
+        <div class="row">
+            <div class="col-12 col-md">
+                SkyStore
+                <small class="d-block mb-3 text-muted">&copy; 2023</small>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Категории</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="#">Рассылки</a></li>
+                    <li><a class="text-muted" href="#">Телеграм боты</a></li>
+                    <li><a class="text-muted" href="#">Полезные утилиты</a></li>
+                    <li><a class="text-muted" href="#">Веб-приложения</a></li>
+                    <li><a class="text-muted" href="#">Микросервисы</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>Дополнительно</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="#">Мы пишем</a></li>
+                </ul>
+            </div>
+            <div class="col-6 col-md">
+                <h5>О нас</h5>
+                <ul class="list-unstyled text-small">
+                    <li><a class="text-muted" href="/contacts/">Контакты</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</div>
+{% endblock %}
