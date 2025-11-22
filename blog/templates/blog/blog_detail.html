@@ -1,0 +1,19 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Пост{% endblock %}
+
+{% block content %}
+{% include 'catalog/header.html' %}
+
+<h1>{{ blog.title }}</h1>
+<p>{{ blog.content }}</p>
+{% if blog.preview_image %}
+  <img src="{{ blog.preview_image.url }}" alt="{{ blog.title }}">
+{% else %}
+  <p>Изображение отсутствует</p>
+{% endif %}
+<p>Опубликовано: {{ blog.created_at }}</p>
+<p>Просмотров: {{ blog.views_count }}</p>
+<a href="{% url 'blog:blog_update' blog.pk %}">Редактировать</a>
+<a href="{% url 'blog:blog_delete' blog.pk %}">Удалить</a>
+{% endblock %}

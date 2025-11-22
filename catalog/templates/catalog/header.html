@@ -1,0 +1,9 @@
+<header>
+    <h1>Магазин</h1>
+    <p>Добро пожаловать в наш магазин!</p>
+     <nav>
+        <a href="{% url 'catalog:home' %}">Список товаров</a>
+        <a href="{% url 'catalog:product_create' %}">Добавить товар</a>
+        <a href="{% url 'blog:blog_create' %}">Добавить пост</a>
+    </nav>
+</header>

@@ -1,0 +1,28 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Все посты{% endblock %}
+
+{% block content %}
+{% include 'catalog/header.html' %}
+
+ <div class="container mt-5">
+        <h1 class="mb-4">Список постов</h1>
+        <a href="{% url 'blog:blog_create' %}" class="btn btn-primary mb-3">Создать новый пост</a>
+        <ul class="list-group">
+            {% for blog in blogs %}
+            <li class="list-group-item">
+                <a href="{% url 'blog:blog_detail' blog_id=blog.pk %}">
+                    {% if blog.preview_image %}
+                    <img src="{{ blog.preview_image.url }}" alt="{{ blog.title }}" width="50" height="50" class="mr-2">
+                    {% else %}
+                    <span style="display:inline-block; width:150px; height:150px; background-color:#e0e0e0; text-align:center; line-height:50px; color:#555;">Нет изображения</span>
+                    {% endif %}
+                    {{ blog.title }}
+                 </a>
+                <a href="{% url 'blog:blog_update' blog_id=blog.pk %}" class="btn btn-sm btn-secondary ml-3">Редактировать</a>
+                <a href="{% url 'blog:blog_delete' blog_id=blog.pk %}" class="btn btn-sm btn-danger ml-1">Удалить</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

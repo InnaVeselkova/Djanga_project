@@ -1,0 +1,15 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Информация о продукте{% endblock %}
+
+{% block content %}
+{% include 'catalog/header.html' %}
+<h1>Информация о продукте</h1>
+    <p>Наименование: {{ product.name }}</p>
+    <p>Описание: {{ product.description }}</p>
+    <p>Фотография: <img src="{{ product.image.url }}" alt="{{ product.name }}" width="50"></p>
+    <p>Категория: {{ product.category.name }}</p>
+    <p>Цена: {{ product.price }}</p>
+    <p>Создан: {{ product.created_at }}</p>
+    <p>Обновлен: {{ product.updated_at }}</p>
+{% endblock %}
