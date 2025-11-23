@@ -18,6 +18,6 @@
     <p>Цена: {{ product.price }}</p>
     <p>Создан: {{ product.created_at }}</p>
     <p>Обновлен: {{ product.updated_at }}</p>
-    <a href="{% url 'catalog:product_create' %}">Редактировать</a>
+    <a href="{% url 'catalog:product_edit' product_id=product.pk %}">Редактировать</a>
     <a href="{% url 'catalog:product_delete' product_id=product.pk %}">Удалить</a>
 {% endblock %}

@@ -43,6 +43,7 @@ class ProductUpdateView(UpdateView):
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
     success_url = reverse_lazy('catalog:home')
+    pk_url_kwarg = 'product_id'
 
 class ProductDeleteView(DeleteView):
     model = Product
