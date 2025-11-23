@@ -5,7 +5,7 @@
 {% block content %}
 {% include 'catalog/header.html' %}
 <h2>Добавить продукт</h2>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.non_field_errors }}
     {{ form.as_p }}
