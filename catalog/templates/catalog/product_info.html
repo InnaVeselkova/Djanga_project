@@ -7,9 +7,17 @@
 <h1>Информация о продукте</h1>
     <p>Наименование: {{ product.name }}</p>
     <p>Описание: {{ product.description }}</p>
-    <p>Фотография: <img src="{{ product.image.url }}" alt="{{ product.name }}" width="50"></p>
+    <p>Фотография:
+    {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" width="50">
+    {% else %}
+        Нет изображения
+    {% endif %}
+    </p>
     <p>Категория: {{ product.category.name }}</p>
     <p>Цена: {{ product.price }}</p>
     <p>Создан: {{ product.created_at }}</p>
     <p>Обновлен: {{ product.updated_at }}</p>
+    <a href="{% url 'catalog:product_edit' product_id=product.pk %}">Редактировать</a>
+    <a href="{% url 'catalog:product_delete' product_id=product.pk %}">Удалить</a>
 {% endblock %}
