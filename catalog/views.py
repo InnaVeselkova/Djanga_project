@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -25,27 +26,27 @@ def contacts_form(request):
     return render(request, 'catalog/contacts.html')
 
 
-class ProductDetailView(DetailView):
+class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'catalog/product_info.html'
     context_object_name = 'product'
     pk_url_kwarg = 'product_id'
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
     success_url = reverse_lazy('catalog:home')
 
-class ProductUpdateView(UpdateView):
+class ProductUpdateView(LoginRequiredMixin, UpdateView):
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
     success_url = reverse_lazy('catalog:home')
     pk_url_kwarg = 'product_id'
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(LoginRequiredMixin,DeleteView):
     model = Product
     template_name = 'catalog/product_confirm_delete.html'  # шаблон для подтверждения удаления
     success_url = reverse_lazy('catalog:home')
