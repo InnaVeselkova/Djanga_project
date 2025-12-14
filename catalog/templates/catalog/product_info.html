@@ -18,6 +18,21 @@
     <p>Цена: {{ product.price }}</p>
     <p>Создан: {{ product.created_at }}</p>
     <p>Обновлен: {{ product.updated_at }}</p>
-    <a href="{% url 'catalog:product_edit' product_id=product.pk %}">Редактировать</a>
-    <a href="{% url 'catalog:product_delete' product_id=product.pk %}">Удалить</a>
+    {% if user.is_authenticated and user == product.owner %}
+        <a href="{% url 'catalog:product_edit' product_id=product.pk %}">Редактировать</a>
+        <a href="{% url 'catalog:product_delete' product_id=product.pk %}">Удалить</a>
+    {% endif %}
+    {% if request.user.has_perm('catalog.can_unpublish_product') %}
+        <form method="post" action="{% url 'catalog:unpublish_product' product_id=product.id %}">
+            {% csrf_token %}
+            <button type="submit">Отменить публикацию</button>
+        </form>
+    {% endif %}
+
+    {% if request.user.has_perm('catalog.delete_product') %}
+        <form method="post" action="{% url 'catalog:product_delete' product_id=product.id %}">
+            {% csrf_token %}
+            <button type="submit">Удалить продукт</button>
+        </form>
+    {% endif %}
 {% endblock %}
