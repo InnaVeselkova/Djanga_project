@@ -5,14 +5,36 @@ from django.urls import reverse_lazy
 from django.views import View
 
 from .forms import ProductForm
-from .models import Product
+from .models import Product, Category
 from django.views.generic import ListView, DetailView, CreateView, TemplateView, UpdateView, DeleteView
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+
+from .services import ProductService
+from django.core.cache import cache
 
 
 class HomeListView(ListView):
-    model = Product
     template_name = 'home.html'
     context_object_name = 'products'
+
+    def get_queryset(self):
+        category_id = self.request.GET.get('category_id')
+        cache_key = f'product_list_{category_id}' if category_id else 'product_list_all'
+
+        queryset = cache.get(cache_key)
+
+        if queryset is None:
+            # Используем сервис для получения продуктов
+            queryset = ProductService.get_products_in_category(category_id)
+            cache.set(cache_key, list(queryset.values('id', 'name', 'price', 'description')), timeout=60*15)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
 
 
 class ContactsView(TemplateView):
@@ -27,6 +49,7 @@ def contacts_form(request):
     return render(request, 'catalog/contacts.html')
 
 
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     template_name = 'catalog/product_info.html'
