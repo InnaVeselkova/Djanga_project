@@ -3,7 +3,18 @@
 {% block title %}Наши товары{% endblock %}
 
 {% block content %}
-{% include 'catalog/header.html' %}
+<h3>Фильтр по категориям</h3>
+<ul class="list-inline">
+    <li class="list-inline-item">
+        <a href="/">Все товары</a>
+    </li>
+    {% for category in categories %}
+    <li class="list-inline-item">
+        <a href="?category_id={{ category.id }}">{{ category.name }}</a>
+    </li>
+    {% endfor %}
+</ul>
+
 <h2>Наши товары</h2>
 <div class="container">
     <div class="row text-center">
@@ -11,9 +22,9 @@
         <div class="col-3">
             <div class="card mb-4 box-shadow">
                 <div class="card-header">
-            <h4 class="my-0 font-weight-normal">
-                <a href="{% url 'catalog:product_detail' product.id %}">{{ product.name }}</a>
-            </h4>
+                    <h4 class="my-0 font-weight-normal">
+                        <a href="{% url 'catalog:product_detail' product.id %}">{{ product.name }}</a>
+                    </h4>
                 </div>
                 <div class="card-body">
                     <h1 class="card-title pricing-card-title">{{ product.price }}</h1>
